@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "912874324421",
+    "project_id": "myshop-ebc33",
+    "storage_bucket": "myshop-ebc33.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912874324421:android:56d74ccccde626762f4bac",
+        "android_client_info": {
+          "package_name": "prm392.fpt.edu.vn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdb3ljij_4FRZAVzSxReb3odlW2XWprs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
