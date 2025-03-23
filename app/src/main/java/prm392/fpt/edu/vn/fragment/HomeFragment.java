@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import prm392.fpt.edu.vn.R;
@@ -23,9 +26,10 @@ import prm392.fpt.edu.vn.adapter.CategoryAdapter;
 import prm392.fpt.edu.vn.domain.Category;
 
 public class HomeFragment extends Fragment {
-    private FirebaseFirestore db;
-    private List<Category> categoryList;
-    private CategoryAdapter categoryAdapter;
+    private FirebaseFirestore mStore;
+    private List<Category> mCategoryList;
+    private CategoryAdapter mCategoryAdapter;
+    private RecyclerView mCatRecyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -35,10 +39,20 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        db = FirebaseFirestore.getInstance();
-        categoryAdapter = new CategoryAdapter(getContext(), categoryList);
-        db.collection("Category")
+
+        mStore = FirebaseFirestore.getInstance();
+
+
+        mCatRecyclerView = view.findViewById(R.id.category_recycler);
+        mCategoryList = new ArrayList<>();
+        mCategoryAdapter = new CategoryAdapter(getContext(), mCategoryList);
+
+        mCatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
+        mCatRecyclerView.setAdapter(mCategoryAdapter);
+
+        mStore.collection("Category")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -46,10 +60,11 @@ public class HomeFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Category category = document.toObject(Category.class);
-                                categoryList.add(category);
+                                mCategoryList.add(category);
+                                mCategoryAdapter.notifyDataSetChanged();
                             }
                         } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
+                            Log.w("Tag", "Error getting documents.", task.getException());
                         }
                     }
                 });

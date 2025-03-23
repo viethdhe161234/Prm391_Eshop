@@ -3,110 +3,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="100dp"
     tools:context=".fragment.HomeFragment">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="Feature">
-
-                </TextView>
+                    android:text="Feature"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:textSize="18sp"
+                    android:layout_gravity="right"
                     android:layout_marginEnd="5dp"
-                    android:text="See all">
-
-                </TextView>
+                    android:gravity="right"
+                    android:textSize="18sp"
+                    android:text="See All" />
             </RelativeLayout>
-
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/category_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="100dp"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="Feature">
-
-                </TextView>
+                    android:text="Feature"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:textSize="18sp"
+                    android:layout_gravity="right"
                     android:layout_marginEnd="5dp"
-                    android:text="See all">
-
-                </TextView>
+                    android:gravity="right"
+                    android:textSize="18sp"
+                    android:text="See All" />
             </RelativeLayout>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
-            </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout><LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+                android:layout_height="250dp"/>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="Feature"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="Feature">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="right"
+                    android:textSize="18sp"
+                    android:text="See All" />
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"/>
+        </LinearLayout>
 
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textSize="18sp"
-                android:layout_marginEnd="5dp"
-                android:text="See all">
-
-            </TextView>
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="250dp">
-        </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

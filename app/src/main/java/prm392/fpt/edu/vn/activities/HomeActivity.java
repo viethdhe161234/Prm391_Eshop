@@ -1,8 +1,6 @@
 package prm392.fpt.edu.vn.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +9,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 import prm392.fpt.edu.vn.R;
 import prm392.fpt.edu.vn.fragment.HomeFragment;
@@ -33,12 +29,23 @@ public class HomeActivity extends AppCompatActivity {
 
         homeFragment = new HomeFragment();
         loadFragment(homeFragment);
+
+//        Button btn = findViewById(R.id.logout);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+//                finish();
+//            }
+//        });
     }
 
-    private void loadFragment(Fragment fragment){
+    private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }
