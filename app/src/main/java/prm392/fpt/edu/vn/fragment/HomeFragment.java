@@ -23,13 +23,21 @@ import java.util.List;
 
 import prm392.fpt.edu.vn.R;
 import prm392.fpt.edu.vn.adapter.CategoryAdapter;
+import prm392.fpt.edu.vn.adapter.FeatureAdapter;
 import prm392.fpt.edu.vn.domain.Category;
+import prm392.fpt.edu.vn.domain.Feature;
 
 public class HomeFragment extends Fragment {
     private FirebaseFirestore mStore;
+    // Category ---
     private List<Category> mCategoryList;
     private CategoryAdapter mCategoryAdapter;
     private RecyclerView mCatRecyclerView;
+
+    // Feature ---
+    private List<Feature> mFeatureList;
+    private FeatureAdapter mFeatureAdapter;
+    private RecyclerView mFeatureRecyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -43,14 +51,23 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mStore = FirebaseFirestore.getInstance();
-
-
         mCatRecyclerView = view.findViewById(R.id.category_recycler);
+        mFeatureRecyclerView = view.findViewById(R.id.feature_recycler);
+
+        // Category ---
         mCategoryList = new ArrayList<>();
         mCategoryAdapter = new CategoryAdapter(getContext(), mCategoryList);
 
         mCatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
         mCatRecyclerView.setAdapter(mCategoryAdapter);
+        // Feature ---
+        mFeatureList = new ArrayList<>();
+        mFeatureAdapter = new FeatureAdapter(getContext(), mFeatureList);
+
+        mFeatureRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
+        mFeatureRecyclerView.setAdapter(mFeatureAdapter);
+
+
 
         mStore.collection("Category")
                 .get()
@@ -62,6 +79,23 @@ public class HomeFragment extends Fragment {
                                 Category category = document.toObject(Category.class);
                                 mCategoryList.add(category);
                                 mCategoryAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Log.w("Tag", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+        mStore.collection("Feature")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Feature feature = document.toObject(Feature.class);
+                                mFeatureList.add(feature);
+                                mFeatureAdapter.notifyDataSetChanged();
                             }
                         } else {
                             Log.w("Tag", "Error getting documents.", task.getException());
