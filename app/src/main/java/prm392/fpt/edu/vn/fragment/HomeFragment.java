@@ -22,8 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import prm392.fpt.edu.vn.R;
+import prm392.fpt.edu.vn.adapter.BestSellAdapter;
 import prm392.fpt.edu.vn.adapter.CategoryAdapter;
 import prm392.fpt.edu.vn.adapter.FeatureAdapter;
+import prm392.fpt.edu.vn.domain.BestSell;
 import prm392.fpt.edu.vn.domain.Category;
 import prm392.fpt.edu.vn.domain.Feature;
 
@@ -39,6 +41,11 @@ public class HomeFragment extends Fragment {
     private FeatureAdapter mFeatureAdapter;
     private RecyclerView mFeatureRecyclerView;
 
+    // BestSell ---
+    private List<BestSell> mBestSellList;
+    private BestSellAdapter mBestSellAdapter;
+    private RecyclerView mBestSellRecyclerView;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -53,20 +60,23 @@ public class HomeFragment extends Fragment {
         mStore = FirebaseFirestore.getInstance();
         mCatRecyclerView = view.findViewById(R.id.category_recycler);
         mFeatureRecyclerView = view.findViewById(R.id.feature_recycler);
+        mBestSellRecyclerView = view.findViewById(R.id.bestsell_recycle);
 
         // Category ---
         mCategoryList = new ArrayList<>();
         mCategoryAdapter = new CategoryAdapter(getContext(), mCategoryList);
-
         mCatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
         mCatRecyclerView.setAdapter(mCategoryAdapter);
         // Feature ---
         mFeatureList = new ArrayList<>();
         mFeatureAdapter = new FeatureAdapter(getContext(), mFeatureList);
-
         mFeatureRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
         mFeatureRecyclerView.setAdapter(mFeatureAdapter);
-
+        // BestSell ---
+        mBestSellList = new ArrayList<>();
+        mBestSellAdapter = new BestSellAdapter(getContext(), mBestSellList);
+        mBestSellRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
+        mBestSellRecyclerView.setAdapter(mBestSellAdapter);
 
 
         mStore.collection("Category")
@@ -96,6 +106,23 @@ public class HomeFragment extends Fragment {
                                 Feature feature = document.toObject(Feature.class);
                                 mFeatureList.add(feature);
                                 mFeatureAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Log.w("Tag", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+        mStore.collection("BestSell")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                BestSell bestSell = document.toObject(BestSell.class);
+                                mBestSellList.add(bestSell);
+                                mBestSellAdapter.notifyDataSetChanged();
                             }
                         } else {
                             Log.w("Tag", "Error getting documents.", task.getException());

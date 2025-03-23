@@ -20,7 +20,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="Feature"/>
+                    android:text="Categories"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="Feature"/>
+                    android:text="Best Sell"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -91,6 +91,7 @@
                     android:text="See All" />
             </RelativeLayout>
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bestsell_recycle"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"/>
         </LinearLayout>

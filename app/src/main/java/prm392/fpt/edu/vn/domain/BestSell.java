@@ -2,15 +2,12 @@ package prm392.fpt.edu.vn.domain;
 
 import java.io.Serializable;
 
-public class Feature implements Serializable {
+public class BestSell implements Serializable {
     String description;
     String img_url;
     String name;
     double price;
     int rating;
-
-    public Feature() {
-    }
 
     public String getDescription() {
         return description;
@@ -50,5 +47,8 @@ public class Feature implements Serializable {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public BestSell() {
     }
 }
