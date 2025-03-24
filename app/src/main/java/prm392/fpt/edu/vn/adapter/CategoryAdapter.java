@@ -16,6 +16,7 @@ import java.util.List;
 
 import prm392.fpt.edu.vn.R;
 import prm392.fpt.edu.vn.activities.ItemActivity;
+import prm392.fpt.edu.vn.activities.ItemsActivity;
 import prm392.fpt.edu.vn.domain.Category;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
@@ -39,7 +40,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.mTypeImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ItemActivity.class);
+                Intent intent = new Intent(context, ItemsActivity.class);
                 intent.putExtra("type", mCategoryList.get(position).getType());
                 context.startActivity(intent);
             }

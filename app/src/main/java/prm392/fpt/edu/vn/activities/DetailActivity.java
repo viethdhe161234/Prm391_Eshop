@@ -15,10 +15,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import prm392.fpt.edu.vn.R;
 import prm392.fpt.edu.vn.domain.BestSell;
 import prm392.fpt.edu.vn.domain.Feature;
+import prm392.fpt.edu.vn.domain.Items;
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView mImage;
@@ -29,6 +32,12 @@ public class DetailActivity extends AppCompatActivity {
     private TextView mItemDesc;
     private Button mAddToCArt;
     private Button mBuyBtn;
+    FirebaseFirestore mStore;
+    FirebaseAuth mAuth;
+
+    Feature feature = null;
+    BestSell bestSell = null;
+    Items items = null;
 
 
     @Override
@@ -42,13 +51,16 @@ public class DetailActivity extends AppCompatActivity {
             return insets;
         });
 
-        Feature feature = null;
-        BestSell bestSell = null;
+        mStore =FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         Object obj = getIntent().getSerializableExtra("detail");
         if (obj instanceof Feature)
             feature = (Feature) obj;
-        else
+        else if (obj instanceof BestSell)
             bestSell = (BestSell) obj;
+        else
+            items = (Items) obj;
         //Toast.makeText(this, "" + feature.getName(), Toast.LENGTH_LONG).show();
 
 
@@ -85,6 +97,18 @@ public class DetailActivity extends AppCompatActivity {
             mItemDesc.setText(bestSell.getDescription());
         }
 
+        if (items != null) {
+            Glide.with(getApplicationContext()).load(items.getImg_url()).into(mImage);
+            mItemName.setText(items.getName());
+            mPrice.setText(items.getPrice() + "$");
+            mItemRating.setText(items.getRating() + "");
+            if (items.getRating() > 3) {
+                mItemRatDesc.setText("Very Good");
+            } else
+                mItemRatDesc.setText("Good");
+            mItemDesc.setText(items.getDescription());
+        }
+
 
         mAddToCArt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +121,12 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, AddressActivity.class);
+                if(feature != null)
+                    intent.putExtra("item", feature);
+                if(bestSell != null)
+                    intent.putExtra("item", bestSell);
+                if (items!= null)
+                    intent.putExtra("item", items);
                 startActivity(intent);
             }
         });

@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import prm392.fpt.edu.vn.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    private static final int LIMIT = 3000;
+    private static final int LIMIT = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
